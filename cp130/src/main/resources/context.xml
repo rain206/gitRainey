@@ -25,11 +25,11 @@
   
   <!-- Bean implementing edu.uw.ext.framework.broker.BrokerFactory -->
   <bean id="BrokerFactory" class="edu.uw.raineyck.broker.SimpleBrokerFactory"/>
-     
-  <!--Bean implementing edu.uw.ext.framework.exchange.NetworkExchangeAdapterFactory -->
+  
+  <!-- Bean implementing edu.uw.ext.framework.broker.NetworkExchangeAdatper -->
   <bean id="NetworkExchangeAdapterFactory" class="edu.uw.raineyck.exchange.SimpleExchangeNetworkAdapterFactory"/>
   
-  <!--Bean implementing edu.uw.ext.framework.exchange.NetworkExchangeProxyFactory -->
+   <!-- Bean implementing edu.uw.ext.framework.broker.NetworkExchangeAdatper -->
   <bean id="NetworkExchangeProxyFactory" class="edu.uw.raineyck.exchange.ExchangeNetworkProxyFactory"/>
   
 </beans>

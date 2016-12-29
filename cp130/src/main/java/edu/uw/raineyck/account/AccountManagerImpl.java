@@ -75,6 +75,7 @@ public class AccountManagerImpl implements AccountManager, AccountManagerFactory
 			}
 		} else if (getAccount(accountName) != null) {
 			log.info("Exception creating account: account name already exist");
+			throw new AccountException();
 		}
 		return null;
 	}
@@ -114,6 +115,7 @@ public class AccountManagerImpl implements AccountManager, AccountManagerFactory
 				String acctPassword = validatePassword(tempAccount.getPasswordHash());
 
 				String inputedPassword = validatePassword(checkPass);
+				log.info(acctPassword);
 
 				if (acctPassword.equals(inputedPassword)) {
 					log.info("Validation success: login information is valid.");

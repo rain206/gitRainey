@@ -165,6 +165,7 @@ public class SimpleBroker implements Broker, ExchangeListener {
 	public void exchangeClosed(ExchangeEvent event) {
 		marketOrders.setThreshold(Boolean.FALSE);
 	}
+	
 
 	/**
 	 * Create an interface broker
