@@ -1,8 +1,18 @@
 package edu.uw.raineyck.account;
 
+import java.io.File;
 import java.io.IOException;
 
+import edu.uw.ext.framework.account.Account;
+import edu.uw.ext.framework.account.AccountException;
+import edu.uw.ext.framework.account.AccountManager;
+import edu.uw.ext.framework.dao.AccountDao;
+import edu.uw.raineyck.dao.AccountDaoImpl;
+import edu.uw.raineyck.view.AccountOverviewController;
+import edu.uw.raineyck.view.LogInController;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +33,8 @@ public class MainAccountApp extends Application {
 	/**	BorderPane for the root layout */
 	private BorderPane rootLayout;
 	
+	private ObservableList<Account> accountData = FXCollections.observableArrayList();
+	
 	/**	Default constructor */
 	public MainAccountApp() {
 	}
@@ -37,7 +49,7 @@ public class MainAccountApp extends Application {
 		
 		initRootLayout();
 		
-		showAccountOverview();
+		showLogin();
 	}
 	
 	/**
@@ -46,7 +58,7 @@ public class MainAccountApp extends Application {
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAccountApp.class.getResource("view/RootLayout.fxml"));
+			loader.setLocation(MainAccountApp.class.getResource("/view/AccountRootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 			
 			//Show the scene containing the root layout
@@ -59,17 +71,38 @@ public class MainAccountApp extends Application {
 		}
 	}
 	
+	public void showLogin() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainAccountApp.class.getResource("/view/Login.fxml"));
+			AnchorPane login = (AnchorPane) loader.load();
+			
+			rootLayout.setCenter(login);
+			
+			LogInController controller = loader.getController();
+			controller.setMainAccountApp(this);
+			System.out.println("DONE");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Shows the account overview inside the root layout
 	 */
 	public void showAccountOverview() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAccountApp.class.getResource("view/AccountOverview.fxml"));
+			loader.setLocation(MainAccountApp.class.getResource("/view/AccountOverview.fxml"));
 			AnchorPane accountOverview = (AnchorPane) loader.load();
 			
 			//Set the account overview into the center of root layout
 			rootLayout.setCenter(accountOverview);
+			
+			AccountOverviewController controller = loader.getController();
+			controller.setMainAccountApp(this);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

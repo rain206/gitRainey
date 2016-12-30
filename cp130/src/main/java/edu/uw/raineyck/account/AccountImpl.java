@@ -12,10 +12,6 @@ import edu.uw.ext.framework.account.CreditCard;
 import edu.uw.ext.framework.order.Order;
 
 /**
- * Account Implementation class that sets and gets all account information
- * including the address, credit card, and other important information. This
- * class also moderates new accounts being open by requiring a minimum of 8
- * character account name and beginning balance of $1,000 (in cents).
  * 
  * @author craigrainey
  *
