@@ -1,4 +1,4 @@
-package app;
+package edu.uw.raineyck.account;
 
 import java.io.IOException;
 
@@ -46,7 +46,7 @@ public class MainAccountApp extends Application {
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAccountApp.class.getResource("/Users/craigrainey/gitRain/cp130/src/main/java/edu/uw/raineyck/view/RootLayout.fxml"));
+			loader.setLocation(MainAccountApp.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 			
 			//Show the scene containing the root layout
@@ -65,7 +65,7 @@ public class MainAccountApp extends Application {
 	public void showAccountOverview() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainAccountApp.class.getResource("/Users/craigrainey/gitRain/cp130/src/main/java/edu/uw/raineyck/view/AccountOverview.fxml"));
+			loader.setLocation(MainAccountApp.class.getResource("view/AccountOverview.fxml"));
 			AnchorPane accountOverview = (AnchorPane) loader.load();
 			
 			//Set the account overview into the center of root layout
