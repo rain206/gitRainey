@@ -37,7 +37,6 @@ import com.scg.util.StateCode;
  */
 public class DbServer {
 	
-	
 	/** Invoice line items */
 	private List<InvoiceLineItem> invoiceLines;
 	

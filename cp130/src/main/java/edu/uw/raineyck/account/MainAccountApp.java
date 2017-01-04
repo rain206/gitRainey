@@ -9,6 +9,7 @@ import edu.uw.ext.framework.account.AccountManager;
 import edu.uw.ext.framework.dao.AccountDao;
 import edu.uw.raineyck.dao.AccountDaoImpl;
 import edu.uw.raineyck.view.AccountOverviewController;
+import edu.uw.raineyck.view.EditAccountNameController;
 import edu.uw.raineyck.view.LogInController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +31,9 @@ public class MainAccountApp extends Application {
 	
 	/**	Primary Stage */
 	private Stage primaryStage;
+	
+	/**	Account Overview Stage */
+	private Stage acctOverViewStage;
 	
 	/**	BorderPane for the root layout */
 	private BorderPane rootLayout;
@@ -81,7 +86,6 @@ public class MainAccountApp extends Application {
 			
 			LogInController controller = loader.getController();
 			controller.setMainAccountApp(this);
-			System.out.println("DONE");
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -91,17 +95,51 @@ public class MainAccountApp extends Application {
 	/**
 	 * Shows the account overview inside the root layout
 	 */
-	public void showAccountOverview() {
+	public void showAccountOverview(Account userAcct) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(MainAccountApp.class.getResource("/view/AccountOverview.fxml"));
 			AnchorPane accountOverview = (AnchorPane) loader.load();
 			
-			//Set the account overview into the center of root layout
-			rootLayout.setCenter(accountOverview);
+			//Create the overview stage.
+			Stage acctStage = new Stage();
+			acctStage.setTitle(userAcct.getName());
+			acctStage.initModality(Modality.WINDOW_MODAL);
+			acctStage.initOwner(primaryStage);
+			Scene scene = new Scene(accountOverview);
+			acctStage.setScene(scene);
+			this.acctOverViewStage = acctStage;
 			
 			AccountOverviewController controller = loader.getController();
 			controller.setMainAccountApp(this);
+			controller.setAccount(userAcct);
+			
+			//Show the acctStage and wait until the user closes it
+			acctStage.showAndWait();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void showEditAccountName(Account acctToEdit) {
+		try {
+			FXMLLoader editNameLoader = new FXMLLoader();
+			editNameLoader.setLocation(MainAccountApp.class.getResource("/view/EditAccountName.fxml"));
+			AnchorPane editAccountName = (AnchorPane) editNameLoader.load();
+			
+			//Create the edit account name stage.
+			Stage editAcct = new Stage();
+			editAcct.setTitle("Edit Account Name");
+			editAcct.initModality(Modality.WINDOW_MODAL);
+			editAcct.initOwner(acctOverViewStage);
+			Scene scene = new Scene(editAccountName);
+			editAcct.setScene(scene);
+			
+			EditAccountNameController controller = editNameLoader.getController();
+			controller.setAcctToEdit(acctToEdit);
+			
+			editAcct.showAndWait();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
